@@ -38,7 +38,8 @@
 
                             <label style="float:right;">
                                 Search:
-                                <input class="form-control-sm" id="myInput" type="text" placeholder="Search..">
+                                <input class="form-control-sm" id="myInput" type="text" placeholder="Search.."
+                                    onkeyup="myFunction()">
                             </label>
                         </div> <!--End Show Entry And Search Form-->
 
@@ -46,7 +47,7 @@
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped">
                                 <thead>
-                                    <tr>
+                                    <tr class="ignore-search">
                                         <th scope="col">#</th>
                                         <th scope="col">Nama</th>
                                         <th scope="col">ID Staff</th>
@@ -56,6 +57,10 @@
                                     </tr>
                                 </thead>
                                 <tbody id="myTable">
+                                    <tr id="not-found-row" class="ignore-search" style="display:none;">
+                                        <td colspan="6" style="font-weight:bold;text-align:center;">Data limit tidak
+                                            ditemukan</td>
+                                    </tr>
                                     @if (count($datalimit) > 0)
                                         @foreach ($datalimit as $index => $li)
                                             <tr>
@@ -152,15 +157,53 @@
 @endsection
 @push('datalimit')
     <script>
+        // Pencarian data limit dengan respon not found
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+
+            var resultsNotFound = true;
+            document.querySelectorAll("table tr:not(.ignore-search)").forEach(tr => {
+                var isHidden = tr.offsetParent === null
+                if (!isHidden) {
+                    resultsNotFound = false;
+                }
+            })
+
+            var notFoundLabel = document.getElementById('not-found-row');
+            if (resultsNotFound) {
+                notFoundLabel.style.display = "";
+            } else {
+                notFoundLabel.style.display = "none";
+            }
+
+        }
+
         //Menampilkan Hasil Pencarian Dari Data General Settings
-        $(document).ready(function() {
-            $("#myInput").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $("#myTable tr").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
+        // $(document).ready(function() {
+        //     $("#myInput").on("keyup", function() {
+        //         var value = $(this).val().toLowerCase();
+        //         $("#myTable tr").filter(function() {
+        //             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        //         });
+        //     });
+        // });
 
         // $(function() {
         //     // Menampilkan Data Di Form Ketika Tombol Edit Di Klik
