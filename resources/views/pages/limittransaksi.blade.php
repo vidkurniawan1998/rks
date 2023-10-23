@@ -38,8 +38,7 @@
 
                             <label style="float:right;">
                                 Search:
-                                <input class="form-control-sm" id="myInput" type="text" placeholder="Search.."
-                                    onkeyup="myFunction()">
+                                <input class="form-control-sm" id="myInput" type="text" placeholder="Search..">
                             </label>
                         </div> <!--End Show Entry And Search Form-->
 
@@ -58,7 +57,7 @@
                                 </thead>
                                 <tbody id="myTable">
                                     <tr id="not-found-row" class="ignore-search" style="display:none;">
-                                        <td colspan="6" style="font-weight:bold;text-align:center;">Limit transaksi tidak
+                                        <td colspan="6" style="font-weight:bold;text-align:center;">Data limit tidak
                                             ditemukan</td>
                                     </tr>
                                     @if (count($limittransaksi) > 0)
@@ -197,43 +196,32 @@
 @endsection
 @push('limittransaksi')
     <script>
-        // Pencarian data limit transaksi dengan respon not found
-        function myFunction() {
-            var input, filter, table, tr, td, i, txtValue;
-
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
+        //Menampilkan Hasil Pencarian Dari limit transaksi dengan respon not found
+        $(document).ready(function() {
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr:not(.ignore-search)").each(function() {
+                    var found = false;
+                    $(this).find('td').each(function() {
+                        if ($(this).text().toLowerCase().indexOf(value) > -1) {
+                            found = true;
+                            return false; // exit the loop if a match is found
+                        }
+                    });
+                    if (found) {
+                        $(this).show();
                     } else {
-                        tr[i].style.display = "none";
+                        $(this).hide();
                     }
-                }
-            }
+                });
 
-            var resultsNotFound = true;
-            document.querySelectorAll("table tr:not(.ignore-search)").forEach(tr => {
-                var isHidden = tr.offsetParent === null
-                if (!isHidden) {
-                    resultsNotFound = false;
-                }
-            })
+                // Check if any rows are visible
+                var resultsNotFound = $("#myTable tr:not(.ignore-search):visible").length === 0;
 
-            var notFoundLabel = document.getElementById('not-found-row');
-            if (resultsNotFound) {
-                notFoundLabel.style.display = "";
-            } else {
-                notFoundLabel.style.display = "none";
-            }
-
-        }
+                // Show/hide the "Not Found" row
+                $("#not-found-row").toggle(resultsNotFound);
+            });
+        });
 
         //Menampilkan Hasil Pencarian Dari limit transaksi tanpa respon not found
         // $(document).ready(function() {
