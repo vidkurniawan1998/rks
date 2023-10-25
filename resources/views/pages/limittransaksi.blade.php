@@ -129,14 +129,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="idstaff" class="col-form-label">ID Staff:</label>
-                                <select class="form-select" name="idstaff" required id="validationCustom04">
-                                    <option selected disabled value="">Pilih ID Staff</option>
-                                    <option value="CW001">CW001</option>
-                                    <option value="CW002">CW002</option>
-                                    <option value="CW003">CW003</option>
-                                    <option value="CW004">CW004</option>
-                                </select>
-                                <div class="invalid-feedback">Pilih dulu staff ID!</div>
+                                <input type="text" class="form-control" id="idstaff" name="idstaff"
+                                    placeholder="ID Staff" required>
+                                <div class="invalid-feedback">Harap masukkan staff ID!</div>
                             </div>
                             <div class="form-group">
                                 <label for="saldo" class="col-form-label">Saldo:</label>
@@ -167,17 +162,11 @@
                         <input type="hidden" name="id" id="id" class="id">
                         <div class="form-group">
                             <label for="nama" class="col-form-label">Nama:</label>
-                            <input type="text" class="form-control nama" name="nama" required>
+                            <input type="text" class="form-control nama" name="nama" readonly>
                         </div>
                         <div class="form-group">
                             <label for="idstaff" class="col-form-label">ID Staff:</label>
-                            <select class="form-select idstaff" name="idstaff" required>
-                                <option selected disabled value="">Pilih ID Staff</option>
-                                <option value="CW001">CW001</option>
-                                <option value="CW002">CW002</option>
-                                <option value="CW003">CW003</option>
-                                <option value="CW004">CW004</option>
-                            </select>
+                            <input class="form-control idstaff" name="idstaff" readonly>
                         </div>
                         <div class="form-group">
                             <label for="saldo" class="col-form-label">Saldo:</label>

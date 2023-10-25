@@ -220,71 +220,17 @@
 
                                 </div>
                             </div><!-- End Reports -->
-
-                            <!--Form Pencarian Dan Laporan Transaksi-->
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title" style="padding-bottom:2px;">Form Pencarian</h5>
-                                            <form>
-                                                <div class="form-group">
-                                                    <select class="form-select js-example-basic-multiple">
-                                                        <option value="Pilih ID Staff">Pilih ID Staff</option>
-                                                        <option value="CW001">CW001</option>
-                                                        <option value="CW002">CW002</option>
-                                                        <option value="CW003">CW003</option>
-                                                        <option value="CW004">CW004</option>
-                                                    </select>
-                                                </div>
-
-                                                <h5 class="card-title" style="padding-bottom:1px;">Tanggal Transaksi</h5>
-                                                <div class="form-group">
-                                                    <label for="tgl_awal" class="col-form-label">Tanggal Awal</label>
-                                                    <input type="datetime-local" class="form-control" name="tgl_awal"
-                                                        id="tgl_awal">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="tgl_awal" class="col-form-label">Tanggal Akhir</label>
-                                                    <input type="datetime-local" class="form-control" name="tgl_akhir"
-                                                        id="tgl_akhir">
-                                                </div>
-
-                                                <div class="form-group py-3">
-                                                    <button class="btn btn-primary"><span class="bi bi-search"></span>
-                                                        Search</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-auto">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Laporan Transaksi</h5>
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered table-striped">
-                                                    <thead>
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">ID Staff</th>
-                                                        <th scope="col">Nama</th>
-                                                        <th scope="col">Saldo</th>
-                                                        <th scope="col">Tanggal Transaksi</th>
-                                                        <th scope="col">Total Harga</th>
-                                                    </thead>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 @endsection
 @push('dashboard')
     <script>
-        $(document).ready(function() {
-            $('.js-example-basic-single').select2();
-        });
+        // $(document).ready(function() {
+        //     $('.js-example-basic-single').select2();
+        // });
     </script>
+@endpush

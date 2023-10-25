@@ -87,6 +87,7 @@
     @stack('limittransaksi')
     @stack('product')
     @stack('datalimit')
+    @stack('header')
 </body>
 
 </html>
