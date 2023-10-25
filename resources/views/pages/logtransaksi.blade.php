@@ -17,43 +17,43 @@
             <div class="col">
                 <div class="row">
                     <!--Form Pencarian Dan Laporan Transaksi-->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title" style="padding-bottom:2px;">Form Pencarian</h5>
+                                <form action="{{ route('rks.filter_log_transaksi') }}" method="get" class="row g-3">
+                                    @csrf
+                                    <div class="col-md-4">
+                                        <label for="agenid" class="col-form-label">ID Agen :</label>
+                                        <input type="text" class="form-control" name="agenid" id="agenid"
+                                            placeholder="ID Agen">
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="start_date" class="col-form-label">Tanggal Awal</label>
+                                        <input type="date" class="form-control" name="start_date" id="start_date"
+                                            placeholder="Start Date">
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="end_date" class="col-form-label">Tanggal Akhir</label>
+                                        <input type="date" class="form-control" name="end_date" id="end_date"
+                                            placeholder="End Date">
+                                    </div>
+
+                                    <div class="form-group py-3">
+                                        <button class="btn btn-primary" style="float:right;"><span
+                                                class="bi bi-search"></span>
+                                            Search</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col">
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title" style="padding-bottom:2px;">Form Pencarian</h5>
-                                        <form action="{{ route('rks.filter_log_transaksi') }}" method="get">
-                                            @csrf
-                                            <div class="form-group">
-                                                <label for="agenid" class="col-form-label">ID Agen :</label>
-                                                <input type="text" class="form-control" name="agenid" id="agenid">
-                                            </div>
 
-                                            <h5 class="card-title" style="padding-bottom:1px;">Tanggal Transaksi
-                                            </h5>
-                                            <div class="form-group">
-                                                <label for="start_date" class="col-form-label">Tanggal Awal</label>
-                                                <input type="datetime-local" class="form-control" name="start_date"
-                                                    id="start_date">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="end_date" class="col-form-label">Tanggal Akhir</label>
-                                                <input type="datetime-local" class="form-control" name="end_date"
-                                                    id="end_date">
-                                            </div>
-
-                                            <div class="form-group py-3">
-                                                <button class="btn btn-primary"><span class="bi bi-search"></span>
-                                                    Search</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-8">
+                            <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Log Transaksi</h5>

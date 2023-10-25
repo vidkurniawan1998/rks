@@ -43,26 +43,40 @@ class UserController extends Controller
 
     public function view_log_transaksi()
     {
-        $logpurchase = Logpurchase::paginate(10);
+        $query= Logpurchase::query();
+
+        if (!empty($agenid)) {
+            $query->where(function($q) use ($agenid) {
+                $q->where('agenid', 'LIKE', 'RK%'); // Mencari agen yang dimulai dengan 'CW'
+            });
+        }
+
+        if (!empty($start_date)) {
+            $query->whereBetween('tanggal', [$start_date, $end_date]);
+        }
+
+        $logpurchase = $query->paginate(10);
         return view('pages.logtransaksi', compact('logpurchase'));
     }
 
     public function filter_log_transaksi(Request $request)
     {
         $agenid = $request->input('agenid');
-        $start_date = date('Y-m-d H:i:s', strtotime($request->input('start_date')));
-        $end_date = date('Y-m-d H:i:s', strtotime($request->input('end_date')));
+        $start_date = date('Y-m-d', strtotime($request->input('start_date')));
+        $end_date = date('Y-m-d', strtotime($request->input('end_date')));
 
         $query= Logpurchase::query();
 
         if (!empty($agenid)) {
             $query->where(function($q) use ($agenid) {
-                $q->where('agenid', 'LIKE', 'CW%') // Mencari agen yang dimulai dengan 'CW'
-                  ->orWhere('agenid', 'LIKE', 'RK%'); // Mencari agen yang dimulai dengan 'RK'
+                $q->where('agenid', 'LIKE', 'RK%')// Mencari agen yang dimulai dengan 'CW'
+                ->orwhere('h2h_id', '');//Mencari Dengan h2h_id Seluruhnya
             });
         }
 
         if (!empty($start_date)) {
+            $start_date = date('Y-m-d H:i:s', strtotime($start_date.' 00:00:00'));
+            $end_date = date('Y-m-d H:i:s', strtotime($end_date.' 23:59:59'));
             $query->whereBetween('tanggal', [$start_date, $end_date]);
         }
 
