@@ -45,16 +45,19 @@ class UserController extends Controller
     {
         $query= Logpurchase::query();
 
-        if (!empty($agenid)) {
-            $query->where(function($q) use ($agenid) {
-                $q->where('agenid', 'LIKE', 'RK%'); // Mencari agen yang dimulai dengan 'CW'
-            });
-        }
+        // if (!empty($agenid)) {
+        //     $query->where(function($q) use ($agenid) {
+        //         $q->where('agenid', 'LIKE', 'RK%'); // Mencari agen yang dimulai dengan 'CW'
+        //     });
+        // }
+
+        $query->where('agenid', 'LIKE', 'RK%');
 
         if (!empty($start_date)) {
             $query->whereBetween('tanggal', [$start_date, $end_date]);
         }
 
+        $query->orderBy('tanggal', 'desc');
         $logpurchase = $query->paginate(10);
         return view('pages.logtransaksi', compact('logpurchase'));
     }
