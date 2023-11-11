@@ -18,8 +18,12 @@
                     <div class="card-body">
                         <h5 class="card-title"><i class="bi bi-file-spreadsheet-fill"></i>
                             Data Limit
-                            <button class="btn btn-primary btn-sm" style="float: right;" data-toggle="modal"
-                                data-target="#modal-create"><i class="bi bi-upload"></i> Upload</button>
+                            <div class="btn-toolbar" style="float:right;">
+                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-create"><i
+                                        class="bi bi-upload"></i> Upload</button>
+                                <a href="{{ route('limittransaksi.download_data_limit') }}" class="btn btn-success btn-sm"
+                                    style="margin-left:5px;"><i class="bi bi-download"></i> Download</a>
+                            </div>
                         </h5>
                         <hr>
 
@@ -49,8 +53,8 @@
                                 <thead>
                                     <tr class="ignore-search">
                                         <th scope="col">#</th>
-                                        <th scope="col">Nama</th>
                                         <th scope="col">ID Staff</th>
+                                        <th scope="col">Nama</th>
                                         <th scope="col">Saldo</th>
                                         <th scope="col">Tanggal Transaksi</th>
                                         <th scope="col">Action</th>
@@ -65,8 +69,8 @@
                                         @foreach ($datalimit as $index => $li)
                                             <tr>
                                                 <td>{{ $datalimit->firstItem() + $index }}</td>
-                                                <td>{{ $li->nama }}</td>
                                                 <td>{{ $li->idstaff }}</td>
+                                                <td>{{ $li->nama }}</td>
                                                 <td>{{ $li->saldo }}</td>
                                                 <td>{{ $li->created_at }}</td>
                                                 <td>

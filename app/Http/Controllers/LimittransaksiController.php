@@ -6,6 +6,7 @@ use Session;
 
 use App\Limittransaksi;
 use App\Datalimit;
+use App\Exports\DatalimitExport;
 use App\Imports\DatalimitImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -102,6 +103,10 @@ class LimittransaksiController extends Controller
         $datalimit = Excel::import(new DatalimitImport, public_path('/file_limit/' . $nama_file));
 
         return redirect()->back()->with(['success' => 'Data limit berhasil diimport'], 201);
+    }
+
+    public function download_data_limit_2(){
+        return Excel::download(new DatalimitExport, 'data_limit.xlsx');
     }
 
     public function store_data_limit(Request $request)

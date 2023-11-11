@@ -16,8 +16,8 @@ class DatalimitImport implements ToModel
     {
         return new Datalimit([
             //
-            'nama' => $row[1],
-            'idstaff' => $row[2],
+            'idstaff' => $row[1],
+            'nama' => $row[2],
             'saldo' => $row[3],
         ]);
     }

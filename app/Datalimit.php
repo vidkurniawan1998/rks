@@ -10,8 +10,8 @@ class Datalimit extends Model
 
     protected $table = 'data_limit_2';
     protected $fillable = [
-        'nama',
         'idstaff',
+        'nama',
         'saldo',
         'last_update',
         'updated_at',

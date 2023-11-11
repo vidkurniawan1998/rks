@@ -29,6 +29,7 @@ Route::prefix('limittransaksi')->name('limittransaksi.')->group(function () {
     Route::get('/delete_limit_transaksi/{id}', [LimittransaksiController::class, 'delete_limit_transaksi'])->name('delete_limit_transaksi');
     Route::get('/data_limit', [LimittransaksiController::class, 'view_data_limit'])->name('data_limit');
     Route::post('/process_import_data_limit', [LimittransaksiController::class, 'store_data_limit_2'])->name('store_data_limit');
+    Route::get('/process_export_data_limit', [LimittransaksiController::class, 'download_data_limit_2'])->name('download_data_limit');
     // Route::post('/process_data_limit', [LimittransaksiController::class, 'store_data_limit'])->name('store_data_limit');
 });
 
