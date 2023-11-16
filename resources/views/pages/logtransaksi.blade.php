@@ -73,6 +73,7 @@
                                                     <th scope="col">Status</th>
                                                 </thead>
 
+                                                {{-- Tabel Log Transaksi --}}
                                                 <tbody id="myTable">
                                                     @if (count($logpurchase) > 0)
                                                         @foreach ($logpurchase as $index => $li)

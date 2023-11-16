@@ -46,7 +46,7 @@ class UserController extends Controller
     public function view_log_transaksi()
     {
         $query= Logpurchase::query();
-        $query->join('limit_koperasi', 'log_purchase.agenid', '=', 'limit_koperasi.idstaff')
+        $query->join('limit_koperasi', 'log_purchase.h2h_id', '=', 'limit_koperasi.idstaff')
         ->where('agenid', 'LIKE', 'RK%');
 
         // if (!empty($agenid)) {
