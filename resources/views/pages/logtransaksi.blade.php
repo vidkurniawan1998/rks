@@ -67,9 +67,9 @@
                                                     <th scope="col">Vtype</th>
                                                     <th scope="col">Tujuan</th>
                                                     <th scope="col">Harga</th>
-                                                    <th scope="col">Supplier ID</th>
                                                     <th scope="col">VSN</th>
-                                                    <th scope="col">H2H ID</th>
+                                                    <th scope="col">ID Karyawan</th>
+                                                    <th scope="col">Nama Karyawan</th>
                                                     <th scope="col">Status</th>
                                                 </thead>
 
@@ -84,9 +84,9 @@
                                                                 <td>{{ $li->vtype }}</td>
                                                                 <td>{{ $li->tujuan }}</td>
                                                                 <td>{{ $li->harga }}</td>
-                                                                <td>{{ $li->supp_id }}</td>
                                                                 <td>{{ $li->vsn }}</td>
                                                                 <td>{{ $li->h2h_id }}</td>
+                                                                <td>{{ $li->opr }}</td>
                                                                 <td>
                                                                     @if ($li->status == 0)
                                                                         <input type="button"
