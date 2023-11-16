@@ -86,7 +86,7 @@
                                                                 <td>{{ $li->harga }}</td>
                                                                 <td>{{ $li->vsn }}</td>
                                                                 <td>{{ $li->h2h_id }}</td>
-                                                                <td>{{ $li->opr }}</td>
+                                                                <td>{{ $li->nama }}</td>
                                                                 <td>
                                                                     @if ($li->status == 0)
                                                                         <input type="button"

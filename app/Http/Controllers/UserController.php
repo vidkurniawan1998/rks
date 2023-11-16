@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Limittransaksi;
 use App\Logpurchase;
+
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -44,14 +46,14 @@ class UserController extends Controller
     public function view_log_transaksi()
     {
         $query= Logpurchase::query();
+        $query->join('limit_koperasi', 'log_purchase.agenid', '=', 'limit_koperasi.idstaff')
+        ->where('agenid', 'LIKE', 'RK%');
 
         // if (!empty($agenid)) {
         //     $query->where(function($q) use ($agenid) {
         //         $q->where('agenid', 'LIKE', 'RK%'); // Mencari agen yang dimulai dengan 'CW'
         //     });
         // }
-
-        $query->where('agenid', 'LIKE', 'RK%');
 
         if (!empty($start_date)) {
             $query->whereBetween('tanggal', [$start_date, $end_date]);
