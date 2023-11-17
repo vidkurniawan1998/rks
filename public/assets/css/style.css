@@ -13,7 +13,9 @@
 }
 
 body {
-  font-family: "Open Sans", sans-serif;
+  /* font-family: "Open Sans", sans-serif; */
+  font-family: "Ubuntu", sans-serif;
+  font-size:0.875em;
   background: #f6f9ff;
   color: #444444;
 }

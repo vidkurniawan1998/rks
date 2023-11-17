@@ -61,15 +61,11 @@
                                             <table class="table table-bordered table-striped">
                                                 <thead>
                                                     <th scope="col">Tanggal</th>
-                                                    <th scope="col">Tanggal Sukses</th>
-                                                    <th scope="col">Agen ID</th>
-                                                    <th scope="col">Sender</th>
+                                                    <th scope="col">ID Staff</th>
                                                     <th scope="col">Vtype</th>
                                                     <th scope="col">Tujuan</th>
                                                     <th scope="col">Harga</th>
                                                     <th scope="col">VSN</th>
-                                                    <th scope="col">ID Karyawan</th>
-                                                    <th scope="col">Nama Karyawan</th>
                                                     <th scope="col">Status</th>
                                                 </thead>
 
@@ -79,15 +75,14 @@
                                                         @foreach ($logpurchase as $index => $li)
                                                             <tr>
                                                                 <td>{{ $li->tanggal }}</td>
-                                                                <td>{{ $li->tglsukses }}</td>
-                                                                <td>{{ $li->agenid }}</td>
-                                                                <td>{{ $li->sender }}</td>
+                                                                <td>
+                                                                    {{ $li->h2h_id }}<br>
+                                                                    {{ $li->nama }}
+                                                                </td>
                                                                 <td>{{ $li->vtype }}</td>
                                                                 <td>{{ $li->tujuan }}</td>
                                                                 <td>{{ $li->harga }}</td>
                                                                 <td>{{ $li->vsn }}</td>
-                                                                <td>{{ $li->h2h_id }}</td>
-                                                                <td>{{ $li->nama }}</td>
                                                                 <td>
                                                                     @if ($li->status == 0)
                                                                         <input type="button"
