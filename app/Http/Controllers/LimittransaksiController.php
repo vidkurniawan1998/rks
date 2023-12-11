@@ -49,6 +49,36 @@ class LimittransaksiController extends Controller
         return response()->json($limittransaksi);
     }
 
+    public function entries_limit_transaksi(Request $request){
+        try {
+            $limit = $request->input('entries');
+            $limittransaksi = Limittransaksi::paginate($limit);
+            $view = view('pages.limittransaksi_search_filter', compact('limittransaksi'))->render();
+            return response()->json(['html' => $view]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function search_limit_transaksi(Request $request) {
+        try {
+            $search = $request->input('search');
+
+            // Perform the search
+            $limittransaksi = Limittransaksi::where('nama', 'like', '%' . $search . '%')
+                ->orWhere('idstaff', 'like', '%' . $search . '%')
+                ->orWhere('saldo', 'like', '%' . $search . '%')
+                ->paginate(10);
+
+            // Render the view for the search results
+            $view = view('pages.limittransaksi_search_filter', compact('limittransaksi'))->render();
+
+            return response()->json(['html' => $view]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
     public function update_limit_transaksi(Request $request, $id)
     {
         //Menemukan Data Berdasarkan User ID
@@ -107,6 +137,36 @@ class LimittransaksiController extends Controller
 
     public function download_data_limit_2(){
         return Excel::download(new DatalimitExport, 'data_limit.xlsx');
+    }
+
+    public function entries_data_limit(Request $request){
+        try {
+            $limit = $request->input('entries');
+            $datalimit = Datalimit::paginate($limit);
+            $view = view('pages.datalimit_search_filter', compact('datalimit'))->render();
+            return response()->json(['html' => $view]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function search_data_limit(Request $request){
+        try {
+            $search = $request->input('search');
+
+            // Perform the search
+            $datalimit = Datalimit::where('nama', 'like', '%' . $search . '%')
+                ->orWhere('idstaff', 'like', '%' . $search . '%')
+                ->orWhere('saldo', 'like', '%' . $search . '%')
+                ->paginate(10);
+
+            // Render the view for the search results
+            $view = view('pages.datalimit_search_filter', compact('datalimit'))->render();
+
+            return response()->json(['html' => $view]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     public function store_data_limit(Request $request)

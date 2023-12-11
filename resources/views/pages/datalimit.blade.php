@@ -31,27 +31,28 @@
                         <div class="col pb-4 table-responsive">
                             <label for="entries">
                                 Show
-                                <select class="form-control-sm" id="entries" name="entries">
+                                <select class="form-control-sm" id="myEntries" name="entries">
                                     <option value="10">10</option>
                                     <option value="25">25</option>
                                     <option value="50">50</option>
                                     <option value="100">100</option>
+                                    <option value="250">250</option>
+                                    <option value="500">500</option>
                                 </select>
                                 entries
                             </label>
 
                             <label style="float:right;">
                                 Search:
-                                <input class="form-control-sm" id="myInput" type="text" placeholder="Search.."
-                                    onkeyup="myFunction()">
+                                <input class="form-control-sm" id="myInput" name="search" type="text" placeholder="Search..">
                             </label>
                         </div> <!--End Show Entry And Search Form-->
 
                         <!-- Default Table -->
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped" id="myTable">
                                 <thead>
-                                    <tr class="ignore-search">
+                                    <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">ID Staff</th>
                                         <th scope="col">Nama</th>
@@ -60,11 +61,7 @@
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="myTable">
-                                    <tr id="not-found-row" class="ignore-search" style="display:none;">
-                                        <td colspan="6" style="font-weight:bold;text-align:center;">Data limit tidak
-                                            ditemukan</td>
-                                    </tr>
+                                <tbody>
                                     @if (count($datalimit) > 0)
                                         @foreach ($datalimit as $index => $li)
                                             <tr>
@@ -161,43 +158,56 @@
 @endsection
 @push('datalimit')
     <script>
-        // Pencarian data limit dengan respon not found
+        //Mengaktifikan Fitur Show Entry Dan Filter Data Limit AJAX
         $(document).ready(function() {
-            // Pencarian data limit transaksi
             $("#myInput").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $("#myTable tr:not(.ignore-search)").each(function() {
-                    var found = false;
-                    $(this).find('td').each(function() {
-                        if ($(this).text().toLowerCase().indexOf(value) > -1) {
-                            found = true;
-                            return false; // exit the loop if a match is found
-                        }
-                    });
-                    if (found) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-                });
+                performSearch();
+            });
 
-                // Check if any rows are visible
-                var resultsNotFound = $("#myTable tr:not(.ignore-search):visible").length === 0;
-
-                // Show/hide the "Not Found" row
-                $("#not-found-row").toggle(resultsNotFound);
+            $('#myEntries').on('change', function () {
+                var selectedLimit = $(this).val();
+                entriesData(selectedLimit);
             });
         });
 
-        //Menampilkan Hasil Pencarian Dari Data General Settings
-        // $(document).ready(function() {
-        //     $("#myInput").on("keyup", function() {
-        //         var value = $(this).val().toLowerCase();
-        //         $("#myTable tr").filter(function() {
-        //             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        //         });
-        //     });
-        // });
+         //Function Entry Data AJAX
+         function entriesData(limit) {
+            var url = '{{ route('limittransaksi.datalimit_entries') }}';
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: { entries: limit }, // Change 'limit' to 'entries'
+                dataType: 'json',
+                success: function (response) {
+                    $('#myTable').html(response.html);
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    // Handle the error, e.g., display an error message to the user
+                }
+            });
+        }
+
+        //Function Search Data AJAX
+        function performSearch() {
+            var searchValue = $('#myInput').val();
+            var url = '{{ route('limittransaksi.datalimit_search') }}'; // Use the correct route name
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: { search: searchValue },
+                dataType: 'json',
+                success: function(response) {
+                    $('#myTable').html(response.html);
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    // Handle the error, e.g., display an error message to the user
+                }
+            });
+        }
 
         // $(function() {
         //     // Menampilkan Data Di Form Ketika Tombol Edit Di Klik
