@@ -67,7 +67,6 @@ class LimittransaksiController extends Controller
             // Perform the search
             $limittransaksi = Limittransaksi::where('nama', 'like', '%' . $search . '%')
                 ->orWhere('idstaff', 'like', '%' . $search . '%')
-                ->orWhere('saldo', 'like', '%' . $search . '%')
                 ->paginate(10);
 
             // Render the view for the search results
@@ -77,6 +76,20 @@ class LimittransaksiController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
+    }
+
+    public function filter_limit_transaksi(Request $request){
+        $saldo = $request->input('saldo');
+
+        // Jika yang dicari adalah saldo 0, sesuaikan kueri berikut
+        if ($saldo == 0) {
+            $limittransaksi = Limittransaksi::where('saldo', 0)->paginate(10);
+        } else {
+            // Jika ingin mencari berdasarkan sebagian nilai saldo, Anda dapat menggunakan 'like'
+            $limittransaksi = Limittransaksi::where('saldo', 'like', '%' . $saldo . '%')->paginate(10);
+        }
+        return view('pages.limittransaksi', compact('limittransaksi'));
+
     }
 
     public function update_limit_transaksi(Request $request, $id)

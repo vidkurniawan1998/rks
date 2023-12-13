@@ -18,8 +18,12 @@
                     <div class="card-body">
                         <h5 class="card-title"><i class="bi bi-file-spreadsheet-fill"></i>
                             Limit Transaksi
-                            <button class="btn btn-primary btn-sm" style="float: right;" data-toggle="modal"
+                            <div class="btn-toolbar" style="float:right;">
+                                <button class="btn btn-primary btn-sm" style="float: right;" data-toggle="modal"
                                 data-target="#modal-create"><i class="bi bi-plus-circle"></i> Tambah</button>
+                                <button class="btn btn-dark btn-sm" style="float: right;margin-left:5px;" data-toggle="modal"
+                                data-target="#modal-filter"><i class="bi bi-search"></i> Filter Saldo</button>
+                            </div>
                         </h5>
                         <hr>
 
@@ -175,6 +179,37 @@
                             <button class="btn btn-primary update-limittransaksi">Save</button>
                             <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Modal Create Limit Transaksi-->
+        <div class="modal fade" id="modal-filter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Filter Saldo</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="needs-validation" novalidate
+                            action="{{ route('limittransaksi.filter') }}" method="GET"
+                            enctype="multipart/form-data">
+
+                            @csrf
+                            <div class="form-group">
+                                <label for="saldo" class="col-form-label">Saldo:</label>
+                                <input type="number" step="any" class="form-control" id="saldo" name="saldo"
+                                    placeholder="Saldo" required>
+                                <div class="invalid-feedback">Harap masukkan saldo anda!</div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-dark">Filter</button>
+                                <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

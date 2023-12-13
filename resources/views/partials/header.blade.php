@@ -67,12 +67,35 @@
 </div>
 @push('header')
     <script>
-        $(document).ready(function() {
-            // Periksa apakah pengguna tidak terotentikasi
-            @if (!auth()->check())
-                // Tampilkan modal
-                $('#loginModal').modal('show');
-            @endif
-        });
+       $(document).ready(function() {
+        // Periksa apakah pengguna terotentikasi
+        @if (auth()->check())
+            // Set waktu timeout menjadi detik
+            var sessionTimeout = {{ config ('session.lifetime')}} *60 * 1000; // Settingan  Hitungan Per Menit
+            //(Untuk Atur Waktu Per Menit Buka ENV Dan session ubah session_lifetimenya jadi angka 10 (apabila mau atur waktu 10 menit) dan env SESSION_LIFETIME = 10 lalu
+            //php artisan config:clear setiap ubah env dan session.php)
+            var lastActivityTime = new Date().getTime();
+
+            // Atur interval untuk memeriksa aktivitas
+            var checkActivityInterval = setInterval(function() {
+                var currentTime = new Date().getTime();
+                var elapsedTime = currentTime - lastActivityTime;
+
+                // Periksa apakah waktu yang sudah berlalu melebihi waktu timeout
+                if (elapsedTime > sessionTimeout) {
+                    // Tampilkan modal timeout
+                    $('#loginModal').modal('show');
+
+                    // Hentikan interval
+                    clearInterval(checkActivityInterval);
+                }
+            }, 1000); // Periksa setiap detik
+
+            // Atur event untuk merekam waktu aktivitas terakhir
+            $(document).on('mousemove click keypress', function() {
+                lastActivityTime = new Date().getTime();
+            });
+        @endif
+    });
     </script>
 @endpush
