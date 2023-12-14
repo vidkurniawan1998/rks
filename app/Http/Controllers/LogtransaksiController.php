@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Logpurchase;
+use App\Exports\logTransaksiExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use Session;
 
@@ -12,8 +14,8 @@ class LogtransaksiController extends Controller
     //Untuk Menampilkan Log Transaksi
     public function view_log_transaksi()
     {
-        $query= Logpurchase::query();
-        $query->join('limit_koperasi', 'log_purchase.h2h_id', '=', 'limit_koperasi.idstaff')
+        $query= Logpurchase::select('log_purchase.*', 'log_purchase.status as status', 'limit_koperasi.nama as nama')
+        ->join('limit_koperasi', 'log_purchase.h2h_id', '=', 'limit_koperasi.idstaff')
         ->where('agenid', 'LIKE', 'RK%');
 
         // if (!empty($agenid)) {
@@ -29,6 +31,10 @@ class LogtransaksiController extends Controller
         $query->orderBy('tanggal', 'desc');
         $logpurchase = $query->paginate(10);
         return view('pages.logtransaksi', compact('logpurchase'));
+    }
+
+    public function download_log_transaksi(){
+        return Excel::download(new logTransaksiExport, 'log_transaksi.xlsx');
     }
 
     public function filter_log_transaksi(Request $request)

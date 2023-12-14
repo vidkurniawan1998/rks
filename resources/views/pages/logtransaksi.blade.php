@@ -56,7 +56,11 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Log Transaksi</h5>
+                                        <h5 class="card-title">
+                                            Log Transaksi
+                                            <a href="{{ route ('rks.download_log_transaksi') }}" class="btn btn-success btn-sm" style="float:right;"><i class="bi bi-download"></i> Download</a>
+                                        </h5>
+
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-striped">
                                                 <thead>

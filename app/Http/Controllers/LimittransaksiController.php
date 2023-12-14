@@ -25,12 +25,14 @@ class LimittransaksiController extends Controller
             'nama' => 'required',
             'idstaff' => 'required',
             'saldo' => 'required|numeric',
+            'status' => 'required|in:0,1',
         ]);
 
         $limittransaksi = Limittransaksi::create([
             'nama' => $request->nama,
             'idstaff' => $request->idstaff,
             'saldo' => $request->saldo,
+            'status' => $request->status,
         ]);
 
         if ($limittransaksi) {
@@ -101,12 +103,14 @@ class LimittransaksiController extends Controller
             'nama' => 'required',
             'idstaff' => 'required',
             'saldo' => 'required|numeric',
+            'status' => 'required|in:0,1',
         ]);
 
         $limittransaksi->update([
             'nama' => $request->nama,
             'idstaff' => $request->idstaff,
             'saldo' => $request->saldo,
+            'status' => $request->status,
         ]);
 
         if ($limittransaksi) {

@@ -58,6 +58,7 @@
                             $('.nama').val(response.nama);
                             $('.idstaff').val(response.idstaff);
                             $('.saldo').val(response.saldo);
+                            $('.status').val(response.status);
                         }
                     }
                 })
@@ -69,12 +70,14 @@
                 var nama = $('.nama').val();
                 var idstaff = $('.idstaff').val();
                 var saldo = $('.saldo').val();
+                var status = $('.status').val();
                 var url = '{{ url('limittransaksi/update_limit_transaksi') }}' + '/' + id;
 
                 let formData = new FormData();
                 formData.append("nama", nama);
                 formData.append("idstaff", idstaff);
                 formData.append("saldo", saldo);
+                formData.append("status", status);
                 formData.append('_token', '{{ csrf_token() }}');
 
                 $.ajax({

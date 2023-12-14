@@ -48,6 +48,7 @@ Route::prefix('rks')->name('rks.')->group(function () {
     Route::get('/dashboard', [UserController::class, 'view_dashboard'])->name('dashboard');
     Route::get('/log_transaksi', [LogtransaksiController::class, 'view_log_transaksi'])->name('log_transaksi');
     Route::get('/log_transaksi/filter', [LogtransaksiController::class, 'filter_log_transaksi'])->name('filter_log_transaksi');
+    Route::get('/process_export_log_transaksi', [LogtransaksiController::class, 'download_log_transaksi'])->name('download_log_transaksi');
     Route::get('/product', [ProductController::class, 'index'])->name('product');
     Route::get('/entries_product', [ProductController::class, 'entries_product'])->name('product_entries');
     Route::get('/search_product', [ProductController::class, 'search_product'])->name('product_search');

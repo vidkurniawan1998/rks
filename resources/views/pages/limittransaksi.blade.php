@@ -58,6 +58,7 @@
                                         <th scope="col">ID Staff</th>
                                         <th scope="col">Saldo</th>
                                         <th scope="col">Tanggal Transaksi</th>
+                                        <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -70,6 +71,15 @@
                                                 <td>{{ $li->idstaff }}</td>
                                                 <td>{{ $li->saldo }}</td>
                                                 <td>{{ $li->created_at }}</td>
+                                                <td>
+                                                    @if($li->status == 0)
+                                                    <input type="button" class="btn btn-outline-danger" value="Non Aktif">
+                                                    @elseif($li->status == 1)
+                                                    <input type="button" class="btn btn-outline-success" value="Aktif">
+                                                    @else
+                                                    <input type="button" class="btn btn-outline-secondary" value="Error">
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     <button class="btn btn-primary edit-limittransaksi"
                                                         data-id="{{ $li->id }}" data-toggle="modal"
@@ -141,6 +151,15 @@
                                     placeholder="Saldo" required>
                                 <div class="invalid-feedback">Harap masukkan saldo anda!</div>
                             </div>
+
+                            <div class="form-group">
+                                <label for="status" class="col-form-label">Status :</label>
+                                <input type="hidden" name="status" id="statusHidden" value="0">
+                                <select class="form-control" name="status" id="myStatus" required>
+                                    <option value="0" selected>Non Aktif</option>
+                                    <option value="1">Aktif</option>
+                                </select>
+                            </div>
                             <div class="modal-footer">
                                 <button class="btn btn-primary">Save</button>
                                 <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
@@ -151,7 +170,7 @@
             </div>
         </div>
 
-        <!--Modal Update General Setting-->
+        <!--Modal Update Limit Transaksi-->
         <div class="modal fade" id="modal-update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -175,6 +194,13 @@
                             <input type="number" step="any" class="form-control saldo" id="saldo"
                                 name="saldo" placeholder="Saldo" required>
                         </div>
+                        <div class="form-group">
+                            <label for="status" class="col-form-label">Status :</label>
+                            <select class="form-control status" name="status" id="status" required>
+                                <option value="0">Non Aktif</option>
+                                <option value="1">Aktif</option>
+                            </select>
+                        </div>
                         <div class="modal-footer">
                             <button class="btn btn-primary update-limittransaksi">Save</button>
                             <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
@@ -184,7 +210,7 @@
             </div>
         </div>
 
-        <!--Modal Create Limit Transaksi-->
+        <!--Modal Filter Limit Transaksi-->
         <div class="modal fade" id="modal-filter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -218,8 +244,8 @@
 @endsection
 @push('limittransaksi')
     <script>
- //Mengaktifikan Fitur Show Entry Dan Filter Data Limit AJAX
- $(document).ready(function() {
+        //Mengaktifikan Fitur Show Entry Dan Filter Data Limit AJAX
+        $(document).ready(function() {
             $("#myInput").on("keyup", function() {
                 performSearch();
             });
@@ -227,6 +253,13 @@
             $('#myEntries').on('change', function () {
                 var selectedLimit = $(this).val();
                 entriesData(selectedLimit);
+            });
+
+            $('#myStatus').prop('disabled', true);
+
+            // Set the selected value to the hidden input
+            $('#myStatus').change(function() {
+                $('#statusHidden').val($(this).val());
             });
         });
 
@@ -285,6 +318,7 @@
                             $('.nama').val(response.nama);
                             $('.idstaff').val(response.idstaff);
                             $('.saldo').val(response.saldo);
+                            $('.status').val(response.status);
                         }
                     }
                 })
@@ -296,12 +330,14 @@
                 var nama = $('.nama').val();
                 var idstaff = $('.idstaff').val();
                 var saldo = $('.saldo').val();
+                var status = $('.status').val();
                 var url = '{{ url('limittransaksi/update_limit_transaksi') }}' + '/' + id;
 
                 let formData = new FormData();
                 formData.append("nama", nama);
                 formData.append("idstaff", idstaff);
                 formData.append("saldo", saldo);
+                formData.append("status", status);
                 formData.append('_token', '{{ csrf_token() }}');
 
                 $.ajax({

@@ -12,6 +12,7 @@ class Limittransaksi extends Model
         'nama',
         'idstaff',
         'saldo',
+        'status',
         'last_update',
         'updated_at',
         'created_at',
