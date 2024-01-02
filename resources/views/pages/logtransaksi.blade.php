@@ -23,6 +23,9 @@
                                 <h5 class="card-title" style="padding-bottom:2px;">Form Pencarian</h5>
                                 <form action="{{ route('rks.filter_log_transaksi') }}" method="get" class="row g-3">
                                     @csrf
+                                        {{-- <input type="hidden" name="agenid" value="{{ old('agenid', $agenid) }}">
+                                        <input type="hidden" name="start_date" value="{{ old('start_date', $start_date) }}">
+                                        <input type="hidden" name="end_date" value="{{ old('end_date', $end_date) }}"> --}}
                                     <div class="col-md-4">
                                         <label for="agenid" class="col-form-label">ID Agen :</label>
                                         <input type="text" class="form-control" name="agenid" id="agenid"
@@ -129,12 +132,12 @@
                                     <div class="col pb-4 px-sm-4 table-responsive">
                                         <label>
                                             Showing
-                                            {{ $logpurchase->count() }} of {{ $logpurchase->total() }}
+                                            {{-- {{ $logpurchase->count() }} of {{ $logpurchase->total() }} --}}
                                             entries
                                         </label>
 
                                         <label style="float:right;" class="table-responsive">
-                                            {{ $logpurchase->links() }}
+                                            {{-- {{ $logpurchase->links() }} --}}
                                         </label>
                                     </div><!--End Showing Entries And Showing Pagination-->
                                 </div>
