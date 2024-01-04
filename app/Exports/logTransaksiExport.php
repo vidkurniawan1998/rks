@@ -22,12 +22,13 @@ class logTransaksiExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        $monthNow = Carbon::now()->format('m');
+        $now = Carbon::now();
 
         $logPurchaseCollection = Logpurchase::select('log_purchase.tanggal', 'log_purchase.h2h_id', 'limit_koperasi.nama', 'log_purchase.vtype', 'log_purchase.tujuan', 'log_purchase.harga', 'log_purchase.vsn', 'log_purchase.status')
         ->join('limit_koperasi', 'log_purchase.h2h_id', '=', 'limit_koperasi.idstaff')
         ->where('agenid', 'LIKE', 'RK%')
-        ->whereMonth('log_purchase.tanggal', $monthNow)
+        ->whereMonth('log_purchase.tanggal', $now->month)
+        ->whereYear('log_purchase.tanggal', $now->year)
         ->orderBy('log_purchase.tanggal', 'desc')
         ->get();
 
